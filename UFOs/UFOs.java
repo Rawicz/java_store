@@ -12,12 +12,12 @@ import java.util.NoSuchElementException;
  * Memory usage is N*N*N
  */
 public class UFOs {
-	static int bs0[][][];
+	static int biSpace[][][]; // binary space
 	static int N; // The side of a cube space in which the calculations are being done
 
 	public static void main (String[] args) {
 		N = 128;
-		bs0 = new int[N][N][N];
+		biSpace = new int[N][N][N];
 
 		System.out.println("Welcome! This is UFO counter programm!");
 		System.out.println("1 x y z V:\nAdds V UFOs to x:y:z sector (can be negative)");
@@ -95,8 +95,8 @@ public class UFOs {
 					addition = (n) -> {
 						for (Integer yValue : yValues)
 							for (Integer zValue : zValues) {
-								bs0[n][yValue][zValue] += value;
-								if (bs0[n][yValue][zValue] < 0) throw new ArithmeticException("Perhaps there's a negative amount of UFOs somewhere");
+								biSpace[n][yValue][zValue] += value;
+								if (biSpace[n][yValue][zValue] < 0) throw new ArithmeticException("Perhaps there's a negative amount of UFOs somewhere");
 							}
 					};
 					break;
@@ -124,7 +124,7 @@ public class UFOs {
 					addition = (n) -> {
 						for (Integer yValue : yValues)
 							for (Integer zValue : zValues) {
-								bs0[n][yValue][zValue] -= value;
+								biSpace[n][yValue][zValue] -= value;
 								if (n == exceptionPoint) throw new IllegalArgumentException("The total of UFOs can't be negative!");
 							}
 					};
@@ -162,7 +162,7 @@ public class UFOs {
 					addition = (n) -> {
 						for (Integer yValue : yValues)
 							for (Integer zValue : zValues)
-								sum.set(sum.get() +  bs0[n][yValue][zValue]);
+								sum.set(sum.get() +  biSpace[n][yValue][zValue]);
 					};
 					break;
 			}
